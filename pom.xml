@@ -50,10 +50,11 @@
             <version>1.3.2</version>
         </dependency>
         <!--添加一个mysql的依赖注入，防止找不到driverClass-->
+        <!--5.1.46不要动 不要动 不要动 版本-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.28</version>
+            <version>5.1.46</version>
         </dependency>
         <!--引入lombok,用注解@Get\@Set\@Data,不用写get、set、toString方法，减少代码量-->
         <dependency>
