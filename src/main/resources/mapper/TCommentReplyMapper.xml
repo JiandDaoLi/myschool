@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.school.mapper.TCommentReplyMapper">
+  <resultMap id="BaseResultMap" type="com.school.entity.TCommentReply">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fk_forum_comment_key" jdbcType="INTEGER" property="fkForumCommentKey" />
+    <result column="content_text" jdbcType="VARCHAR" property="contentText" />
+    <result column="fk_user_key" jdbcType="INTEGER" property="fkUserKey" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, fk_forum_comment_key, content_text, fk_user_key
+  </sql>
+  <select id="selectByExample" parameterType="com.school.entity.TCommentReplyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_comment_reply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_comment_reply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_comment_reply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.school.entity.TCommentReplyExample">
+    delete from t_comment_reply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.school.entity.TCommentReply">
+    insert into t_comment_reply (id, fk_forum_comment_key, content_text, 
+      fk_user_key)
+    values (#{id,jdbcType=INTEGER}, #{fkForumCommentKey,jdbcType=INTEGER}, #{contentText,jdbcType=VARCHAR}, 
+      #{fkUserKey,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.school.entity.TCommentReply">
+    insert into t_comment_reply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fkForumCommentKey != null">
+        fk_forum_comment_key,
+      </if>
+      <if test="contentText != null">
+        content_text,
+      </if>
+      <if test="fkUserKey != null">
+        fk_user_key,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fkForumCommentKey != null">
+        #{fkForumCommentKey,jdbcType=INTEGER},
+      </if>
+      <if test="contentText != null">
+        #{contentText,jdbcType=VARCHAR},
+      </if>
+      <if test="fkUserKey != null">
+        #{fkUserKey,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.school.entity.TCommentReplyExample" resultType="java.lang.Long">
+    select count(*) from t_comment_reply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_comment_reply
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.fkForumCommentKey != null">
+        fk_forum_comment_key = #{record.fkForumCommentKey,jdbcType=INTEGER},
+      </if>
+      <if test="record.contentText != null">
+        content_text = #{record.contentText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fkUserKey != null">
+        fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_comment_reply
+    set id = #{record.id,jdbcType=INTEGER},
+      fk_forum_comment_key = #{record.fkForumCommentKey,jdbcType=INTEGER},
+      content_text = #{record.contentText,jdbcType=VARCHAR},
+      fk_user_key = #{record.fkUserKey,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.school.entity.TCommentReply">
+    update t_comment_reply
+    <set>
+      <if test="fkForumCommentKey != null">
+        fk_forum_comment_key = #{fkForumCommentKey,jdbcType=INTEGER},
+      </if>
+      <if test="contentText != null">
+        content_text = #{contentText,jdbcType=VARCHAR},
+      </if>
+      <if test="fkUserKey != null">
+        fk_user_key = #{fkUserKey,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.school.entity.TCommentReply">
+    update t_comment_reply
+    set fk_forum_comment_key = #{fkForumCommentKey,jdbcType=INTEGER},
+      content_text = #{contentText,jdbcType=VARCHAR},
+      fk_user_key = #{fkUserKey,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
