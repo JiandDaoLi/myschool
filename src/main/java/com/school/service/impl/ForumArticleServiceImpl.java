@@ -67,7 +67,6 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         Map<String,Object> map = new HashMap<>();
         map.put("title", title);
         if (lone != null && lone.size() !=0) {
-            System.out.println("1沒有進來");
             List<String> ls = new ArrayList<>();
             for (TForumArticle tf : lone) {
                 ls.add(tf.getTitle());
@@ -97,8 +96,6 @@ public class ForumArticleServiceImpl implements ForumArticleService {
                 lfa.add(get(tf));
             }
         }
-
-
         return lfa;
 
     }
