@@ -35,18 +35,18 @@ public class ForumArticleServiceImpl implements ForumArticleService {
     /**
      * 查询文章
      *
-     * @param title
+     * @param likeTitle
      * @return List<TForumArticle>
      */
-    public List<TForumArticleVo> findByTitleToArticle(String title) {
-        log.info("this article");
+    public List<TForumArticleVo> findByTitleAndContentLikeToArticle(String likeTitle) {
         TForumArticleExample tae = new TForumArticleExample();
         List<TForumArticleVo> lfa = new ArrayList<>();
 
         //标题equal
+        List<TForumArticle> lone = new ArrayList<>();
         tae.or()
-                .andTitleEqualTo(title);
-        List<TForumArticle> lone = tam.selectByExample(tae);
+                .andTitleEqualTo(likeTitle);
+        lone = tam.selectByExample(tae);
         if (lone != null && lone.size() != 0) {
             for (TForumArticle tf : lone) {
                 lfa.add(get(tf));
@@ -55,7 +55,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         //内容equal
         tae = new TForumArticleExample();
         tae.or()
-                .andContentTextEqualTo(title);
+                .andContentTextEqualTo(likeTitle);
         List<TForumArticle> ltwo = tam.selectByExample(tae);
         if (ltwo != null && ltwo.size() != 0) {
             for (TForumArticle tf : ltwo) {
@@ -65,7 +65,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         }
         //%标题%
         Map<String,Object> map = new HashMap<>();
-        map.put("title", title);
+        map.put("title", likeTitle);
         if (lone != null && lone.size() !=0) {
             List<String> ls = new ArrayList<>();
             for (TForumArticle tf : lone) {
@@ -81,9 +81,8 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         }
         //%内容%
         map = new HashMap<>();
-        map.put("content_text", title);
+        map.put("content_text", likeTitle);
         if (ltwo != null && ltwo.size() !=0) {
-            System.out.println("2沒有進來");
             List<String> ls = new ArrayList<>();
             for (TForumArticle tf : ltwo) {
                 ls.add(tf.getContentText());
@@ -98,6 +97,43 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         }
         return lfa;
 
+    }
+
+    @Override
+    public List<TForumArticleVo> findByFkTypeIdToArticle(int id) {
+        TForumArticleExample fae = new TForumArticleExample();
+        List<TForumArticle> lfa = new ArrayList<>();
+        List<TForumArticleVo> lfavO = new ArrayList<>();
+        fae.or()
+                .andFkUserKeyEqualTo(id);
+        lfa = tam.selectByExample(fae);
+        for (TForumArticle tf : lfa) {
+            lfavO.add(get(tf));
+        }
+        return lfavO;
+    }
+
+    @Override
+    public TForumArticleVo findByTitleToArticle(String title) {
+        TForumArticleExample fae = new TForumArticleExample();
+        fae.or()
+                .andTitleEqualTo(title);
+        List<TForumArticle> lfa = tam.selectByExample(fae);
+        TForumArticleVo lfaVo = null;
+        try {
+            for (TForumArticle tf : lfa) {
+                lfaVo = get(tf);
+            }
+
+        }catch (Exception e) {
+
+        }finally {
+            return lfaVo;
+        }
+    }
+    @Override
+    public  List<TForumArticleVo> findByTitleLikeLimite(String title) {
+        return null;
     }
 
     private TForumArticleVo get(TForumArticle tf) {
@@ -117,4 +153,5 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         return avo;
 
     }
+
 }

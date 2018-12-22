@@ -14,9 +14,30 @@ import java.util.List;
 public interface ForumArticleService {
     /**
      * select Article
-     * @param title
-     * @return TForumArticle.class
+     * @param likeTitle article title
+     * @return List<TForumArticleVo>
      */
-    List<TForumArticleVo> findByTitleToArticle(String title);
+    List<TForumArticleVo> findByTitleAndContentLikeToArticle(String likeTitle);
+
+    /**
+     * select fk_forum_type_id article
+     * @param id fk_forum_type_key
+     * @return List<TForumArticleVo>
+     */
+    List<TForumArticleVo> findByFkTypeIdToArticle(int id);
+
+    /**
+     * select article
+     * @param title article
+     * @return TForumArticle
+     */
+    TForumArticleVo findByTitleToArticle(String title);
+
+    /**
+     * Titile限制条数返回Article
+     * @param title
+     * @return
+     */
+    List<TForumArticleVo> findByTitleLikeLimite(String title);
 
 }

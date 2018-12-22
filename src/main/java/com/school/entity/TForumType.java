@@ -20,4 +20,12 @@ public class TForumType {
     public void setClassify(String classify) {
         this.classify = classify == null ? null : classify.trim();
     }
+
+    @Override
+    public String toString() {
+        return "TForumType{" +
+                "id=" + id +
+                ", classify='" + classify + '\'' +
+                '}';
+    }
 }
