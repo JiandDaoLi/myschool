@@ -2,8 +2,9 @@ server:
   port: 80
 #/106.13.35.57:3306/
 spring:
+  #zeroDateTimeBehavior=CONVERT_TO_NULL&移除mysql对于异常自动处理
   datasource:
-    url: jdbc:mysql:///sc_school?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Hongkong&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false
+    url: jdbc:mysql:///sc_school?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Hongkong&useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
