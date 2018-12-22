@@ -101,10 +101,26 @@ public class ForumArticleController {
             modelAndView.addObject("favo", favo);
 
             String titleUtil = StringUitl.aString(title);
-            fas.findByTitleLikeLimite(titleUtil);
+            List<TForumArticleVo> taVO =  fas.findByTitleLikeLimite(titleUtil);
+            if (taVO != null && taVO.size()!= 0) {
+                List<Integer> li = new ArrayList<>();
+                for (TForumArticleVo tavo : taVO) {
+                    li.add(tavo.getFkUserKey().getId());
+                }
+                List<TUser> lu = userService.selectUserIdIn(li);
+                for (TUser tUser : lu) {
+                        for (TForumArticleVo tf : taVO) {
+                            if (tUser.getId() == tf.getFkUserKey().getId()) {
+                            while (tf.getFkUserKey().getId() == tUser.getId()) {
+                                tf.setFkUserKey(tUser);
+                                break;
+                            }
 
-
-            modelAndView.addObject("xiangguan", "");
+                        }
+                    }
+                }
+            }
+            modelAndView.addObject("taVo", taVO);
             return modelAndView;
         }
     }

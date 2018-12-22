@@ -131,9 +131,28 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             return lfaVo;
         }
     }
+
     @Override
     public  List<TForumArticleVo> findByTitleLikeLimite(String title) {
-        return null;
+        TForumArticleExample fae = new TForumArticleExample();
+        List<TForumArticleVo> lfaVo = new ArrayList<>();
+        fae.or()
+                .andTitleLike("%"+title+"%");
+        List<TForumArticle> lfa = tam.selectByExample(fae);
+        if (lfa != null && lfa.size() != 0) {
+            if (lfa.size() >= 6) {
+                for (int i = 0; i < 5; i++) {
+                     lfaVo.add(get(lfa.get(i)));
+                }
+            }else if (lfa.size() <= 5 ) {
+                for (TForumArticle tf : lfa) {
+                    lfaVo.add(get(tf));
+                }
+            }
+
+        }
+
+        return lfaVo;
     }
 
     private TForumArticleVo get(TForumArticle tf) {
