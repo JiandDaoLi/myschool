@@ -572,63 +572,63 @@ public class TForumArticleExample {
             return (Criteria) this;
         }
 
-        public Criteria andApplaudIsNull() {
-            addCriterion("applaud is null");
+        public Criteria andFkApplaudStatusIsNull() {
+            addCriterion("fk_applaud_status is null");
             return (Criteria) this;
         }
 
-        public Criteria andApplaudIsNotNull() {
-            addCriterion("applaud is not null");
+        public Criteria andFkApplaudStatusIsNotNull() {
+            addCriterion("fk_applaud_status is not null");
             return (Criteria) this;
         }
 
-        public Criteria andApplaudEqualTo(Integer value) {
-            addCriterion("applaud =", value, "applaud");
+        public Criteria andFkApplaudStatusEqualTo(Integer value) {
+            addCriterion("fk_applaud_status =", value, "fkApplaudStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApplaudNotEqualTo(Integer value) {
-            addCriterion("applaud <>", value, "applaud");
+        public Criteria andFkApplaudStatusNotEqualTo(Integer value) {
+            addCriterion("fk_applaud_status <>", value, "fkApplaudStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApplaudGreaterThan(Integer value) {
-            addCriterion("applaud >", value, "applaud");
+        public Criteria andFkApplaudStatusGreaterThan(Integer value) {
+            addCriterion("fk_applaud_status >", value, "fkApplaudStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApplaudGreaterThanOrEqualTo(Integer value) {
-            addCriterion("applaud >=", value, "applaud");
+        public Criteria andFkApplaudStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("fk_applaud_status >=", value, "fkApplaudStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApplaudLessThan(Integer value) {
-            addCriterion("applaud <", value, "applaud");
+        public Criteria andFkApplaudStatusLessThan(Integer value) {
+            addCriterion("fk_applaud_status <", value, "fkApplaudStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApplaudLessThanOrEqualTo(Integer value) {
-            addCriterion("applaud <=", value, "applaud");
+        public Criteria andFkApplaudStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("fk_applaud_status <=", value, "fkApplaudStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApplaudIn(List<Integer> values) {
-            addCriterion("applaud in", values, "applaud");
+        public Criteria andFkApplaudStatusIn(List<Integer> values) {
+            addCriterion("fk_applaud_status in", values, "fkApplaudStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApplaudNotIn(List<Integer> values) {
-            addCriterion("applaud not in", values, "applaud");
+        public Criteria andFkApplaudStatusNotIn(List<Integer> values) {
+            addCriterion("fk_applaud_status not in", values, "fkApplaudStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApplaudBetween(Integer value1, Integer value2) {
-            addCriterion("applaud between", value1, value2, "applaud");
+        public Criteria andFkApplaudStatusBetween(Integer value1, Integer value2) {
+            addCriterion("fk_applaud_status between", value1, value2, "fkApplaudStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApplaudNotBetween(Integer value1, Integer value2) {
-            addCriterion("applaud not between", value1, value2, "applaud");
+        public Criteria andFkApplaudStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("fk_applaud_status not between", value1, value2, "fkApplaudStatus");
             return (Criteria) this;
         }
 

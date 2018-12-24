@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @Auther: XiTao
  * @Date: 2018/12/23
@@ -32,5 +34,28 @@ public class ForumMindServiceImpl implements ForumMindService {
             b = false;
         }
         return b;
+    }
+
+    @Override
+    public Long selectCountMindUser(int userId) {
+        TForumMindExample fme = new TForumMindExample();
+        fme.or().andFkMindUserEqualTo(userId);
+        return fmm.countByExample(fme);
+    }
+
+    @Override
+    public List<TForumMind> selectMeMindUser(int userId) {
+        TForumMindExample fme = new TForumMindExample();
+        fme.or()
+                .andFkMindUserEqualTo(userId);
+        List<TForumMind> lfm = fmm.selectByExample(fme);
+        try {
+            if (lfm != null && lfm.size() != 0) {
+                return lfm;
+            }
+        } finally {
+            return null;
+        }
+
     }
 }

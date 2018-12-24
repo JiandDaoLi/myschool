@@ -3,14 +3,14 @@ package com.school.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TFkUserSignExample {
+public class TFkArticleUserApplaudStatusExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public TFkUserSignExample() {
+    public TFkArticleUserApplaudStatusExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -164,66 +164,6 @@ public class TFkUserSignExample {
             return (Criteria) this;
         }
 
-        public Criteria andFkUserKeyIsNull() {
-            addCriterion("fk_user_key is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkUserKeyIsNotNull() {
-            addCriterion("fk_user_key is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkUserKeyEqualTo(Integer value) {
-            addCriterion("fk_user_key =", value, "fkUserKey");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkUserKeyNotEqualTo(Integer value) {
-            addCriterion("fk_user_key <>", value, "fkUserKey");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkUserKeyGreaterThan(Integer value) {
-            addCriterion("fk_user_key >", value, "fkUserKey");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkUserKeyGreaterThanOrEqualTo(Integer value) {
-            addCriterion("fk_user_key >=", value, "fkUserKey");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkUserKeyLessThan(Integer value) {
-            addCriterion("fk_user_key <", value, "fkUserKey");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkUserKeyLessThanOrEqualTo(Integer value) {
-            addCriterion("fk_user_key <=", value, "fkUserKey");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkUserKeyIn(List<Integer> values) {
-            addCriterion("fk_user_key in", values, "fkUserKey");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkUserKeyNotIn(List<Integer> values) {
-            addCriterion("fk_user_key not in", values, "fkUserKey");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkUserKeyBetween(Integer value1, Integer value2) {
-            addCriterion("fk_user_key between", value1, value2, "fkUserKey");
-            return (Criteria) this;
-        }
-
-        public Criteria andFkUserKeyNotBetween(Integer value1, Integer value2) {
-            addCriterion("fk_user_key not between", value1, value2, "fkUserKey");
-            return (Criteria) this;
-        }
-
         public Criteria andFkArticleKeyIsNull() {
             addCriterion("fk_article_key is null");
             return (Criteria) this;
@@ -281,6 +221,66 @@ public class TFkUserSignExample {
 
         public Criteria andFkArticleKeyNotBetween(Integer value1, Integer value2) {
             addCriterion("fk_article_key not between", value1, value2, "fkArticleKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkUserKeyIsNull() {
+            addCriterion("fk_user_key is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkUserKeyIsNotNull() {
+            addCriterion("fk_user_key is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkUserKeyEqualTo(Integer value) {
+            addCriterion("fk_user_key =", value, "fkUserKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkUserKeyNotEqualTo(Integer value) {
+            addCriterion("fk_user_key <>", value, "fkUserKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkUserKeyGreaterThan(Integer value) {
+            addCriterion("fk_user_key >", value, "fkUserKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkUserKeyGreaterThanOrEqualTo(Integer value) {
+            addCriterion("fk_user_key >=", value, "fkUserKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkUserKeyLessThan(Integer value) {
+            addCriterion("fk_user_key <", value, "fkUserKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkUserKeyLessThanOrEqualTo(Integer value) {
+            addCriterion("fk_user_key <=", value, "fkUserKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkUserKeyIn(List<Integer> values) {
+            addCriterion("fk_user_key in", values, "fkUserKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkUserKeyNotIn(List<Integer> values) {
+            addCriterion("fk_user_key not in", values, "fkUserKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkUserKeyBetween(Integer value1, Integer value2) {
+            addCriterion("fk_user_key between", value1, value2, "fkUserKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkUserKeyNotBetween(Integer value1, Integer value2) {
+            addCriterion("fk_user_key not between", value1, value2, "fkUserKey");
             return (Criteria) this;
         }
 

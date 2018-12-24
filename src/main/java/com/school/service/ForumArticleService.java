@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface ForumArticleService {
     /**
-     * select Article
+     * select like Article
      * @param likeTitle article title
      * @return List<TForumArticleVo>
      */
@@ -47,13 +47,7 @@ public interface ForumArticleService {
      */
     boolean updateCommentCount(int articleId);
 
-    /**
-     * 点赞 or 取消
-     * @param articleId 文章Id
-     * @param applaudInt 如果是1就加1 如果是-1就减去1
-     * @return boolean
-     */
-    boolean updateApplaudCount(int articleId, int applaudInt);
+
     /**
      * 举报验证
      * @param articleId 文章ID
@@ -61,4 +55,38 @@ public interface ForumArticleService {
      */
     boolean updateViolationCount(int articleId);
 
+    /**
+     * 查询用户文章 浏览量
+     * @param userId
+     * @returnro
+     */
+    Integer selectBrowseCountArticle(int userId);
+
+    /**
+     * 查询当前用户所有文章
+     * @param userId
+     * @return List<TForumArticle>
+     */
+    List<TForumArticle> selectArticleAll(int userId);
+
+    /**
+     * 查询用户最近动态 1-10条 时间最新
+     * @param userId
+     * @return List<TForumArticle>
+     */
+    List<TForumArticle> selectLimitArticle(int userId);
+
+    /**
+     * 查询用户发表过多少文章
+     * @param userId
+     * @return
+     */
+    Long selectArticleCount(int userId);
+
+    /**
+     * 添加文章
+     * @param tForumArticle
+     * @return boolean
+     */
+    boolean addArticle(TForumArticle tForumArticle);
 }

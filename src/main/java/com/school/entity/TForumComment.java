@@ -13,6 +13,8 @@ public class TForumComment {
 
     private Date createTime;
 
+    private String contentText;
+
     public Integer getId() {
         return id;
     }
@@ -51,5 +53,13 @@ public class TForumComment {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getContentText() {
+        return contentText;
+    }
+
+    public void setContentText(String contentText) {
+        this.contentText = contentText == null ? null : contentText.trim();
     }
 }

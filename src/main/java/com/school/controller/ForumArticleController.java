@@ -1,6 +1,7 @@
 package com.school.controller;
 
 
+import com.school.entity.TForumArticle;
 import com.school.entity.TUser;
 import com.school.service.ForumArticleService;
 import com.school.service.UserService;
@@ -129,8 +130,48 @@ public class ForumArticleController {
     public  boolean updateViolationCount(int articleId) {
        return fas.updateViolationCount(articleId);
     }
-    @RequestMapping("/addApplaud")
-    public  boolean  updateApplaudCount(int articleId, int applaudCount) {
-       return fas.updateApplaudCount(articleId,applaudCount);
+    @RequestMapping("/browseCount")
+    public  ModelAndView  selectBrowseCount(int userId) {
+        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
+        Integer count = fas.selectBrowseCountArticle(userId);
+        modelAndView.addObject("browseCount", count);
+        return modelAndView;
     }
+    @RequestMapping("/articleCount")
+    public  ModelAndView  selectArticleCount(int userId) {
+        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
+        Long count = fas.selectArticleCount(userId);
+        modelAndView.addObject("articleCount", count);
+        return modelAndView;
+    }
+    @RequestMapping("/articleAllUser")
+    public  ModelAndView  selectArticleAllUser(int userId) {
+            ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
+            List<TForumArticle> lfa = fas.selectArticleAll(userId);
+            modelAndView.addObject("articleAll", lfa);
+            return modelAndView;
+    }
+
+    @RequestMapping("/articleLimitUser")
+    public  ModelAndView  selectArticleLimitUser(int userId) {
+        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
+        List<TForumArticle> lfa = fas.selectLimitArticle(userId);
+        modelAndView.addObject("articleLimit", lfa);
+        return modelAndView;
+    }
+
+    @RequestMapping("/addArticle")
+    public boolean addArticle(TForumArticle tForumArticle){
+        boolean b = false;
+        try {
+            if (tForumArticle != null) {
+               b = fas.addArticle(tForumArticle);
+            }
+        }finally {
+            return b;
+        }
+
+    }
+
+
 }

@@ -17,7 +17,7 @@ public class TForumArticle {
 
     private Integer violationCount;
 
-    private Integer applaud;
+    private Integer fkApplaudStatus;
 
     private Integer browseConut;
 
@@ -79,12 +79,12 @@ public class TForumArticle {
         this.violationCount = violationCount;
     }
 
-    public Integer getApplaud() {
-        return applaud;
+    public Integer getFkApplaudStatus() {
+        return fkApplaudStatus;
     }
 
-    public void setApplaud(Integer applaud) {
-        this.applaud = applaud;
+    public void setFkApplaudStatus(Integer fkApplaudStatus) {
+        this.fkApplaudStatus = fkApplaudStatus;
     }
 
     public Integer getBrowseConut() {
@@ -101,21 +101,5 @@ public class TForumArticle {
 
     public void setCommentCount(Integer commentCount) {
         this.commentCount = commentCount;
-    }
-
-    @Override
-    public String toString() {
-        return "TForumArticle{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", fkForumTypeKey=" + fkForumTypeKey +
-                ", contentText='" + contentText + '\'' +
-                ", createTime=" + createTime +
-                ", fkUserKey=" + fkUserKey +
-                ", violationCount=" + violationCount +
-                ", applaud=" + applaud +
-                ", browseConut=" + browseConut +
-                ", commentCount=" + commentCount +
-                '}';
     }
 }

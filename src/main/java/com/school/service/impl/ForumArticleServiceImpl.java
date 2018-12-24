@@ -66,9 +66,9 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             tae = new TForumArticleExample();
         }
         //%标题%
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("title", likeTitle);
-        if (lone != null && lone.size() !=0) {
+        if (lone != null && lone.size() != 0) {
             List<String> ls = new ArrayList<>();
             for (TForumArticle tf : lone) {
                 ls.add(tf.getTitle());
@@ -76,7 +76,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             map.put("map", ls);
         }
         List<TForumArticle> lthree = tam.selectLikeTitleNotIn(map);
-        if (lthree != null && lthree.size() !=0) {
+        if (lthree != null && lthree.size() != 0) {
             for (TForumArticle tf : lthree) {
                 lfa.add(get(tf));
             }
@@ -84,7 +84,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         //%内容%
         map = new HashMap<>();
         map.put("content_text", likeTitle);
-        if (ltwo != null && ltwo.size() !=0) {
+        if (ltwo != null && ltwo.size() != 0) {
             List<String> ls = new ArrayList<>();
             for (TForumArticle tf : ltwo) {
                 ls.add(tf.getContentText());
@@ -92,7 +92,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             map.put("map", ls);
         }
         List<TForumArticle> lfour = tam.selectLikeContentNotIn(map);
-        if (lfour != null && lfour.size() !=0) {
+        if (lfour != null && lfour.size() != 0) {
             for (TForumArticle tf : lfour) {
                 lfa.add(get(tf));
             }
@@ -127,26 +127,26 @@ public class ForumArticleServiceImpl implements ForumArticleService {
                 lfaVo = get(tf);
             }
 
-        }catch (Exception e) {
+        } catch (Exception e) {
 
-        }finally {
+        } finally {
             return lfaVo;
         }
     }
 
     @Override
-    public  List<TForumArticleVo> findByTitleLikeLimite(String title) {
+    public List<TForumArticleVo> findByTitleLikeLimite(String title) {
         TForumArticleExample fae = new TForumArticleExample();
         List<TForumArticleVo> lfaVo = new ArrayList<>();
         fae.or()
-                .andTitleLike("%"+title+"%");
+                .andTitleLike("%" + title + "%");
         List<TForumArticle> lfa = tam.selectByExample(fae);
         if (lfa != null && lfa.size() != 0) {
             if (lfa.size() >= 6) {
                 for (int i = 0; i < 5; i++) {
-                     lfaVo.add(get(lfa.get(i)));
+                    lfaVo.add(get(lfa.get(i)));
                 }
-            }else if (lfa.size() <= 5 ) {
+            } else if (lfa.size() <= 5) {
                 for (TForumArticle tf : lfa) {
                     lfaVo.add(get(tf));
                 }
@@ -167,41 +167,18 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             TForumArticle tfa = new TForumArticle();
             lfa.forEach(f -> {
                 tfa.setId(articleId);
-                tfa.setCommentCount(f.getCommentCount()+1);
+                tfa.setCommentCount(f.getCommentCount() + 1);
             });
             int i = tam.updateByPrimaryKey(tfa);
             if (i != 0) {
                 b = true;
             }
-        }finally {
+        } finally {
             return b;
         }
 
 
     }
-
-    @Override
-    public boolean updateApplaudCount(int articleId, int applaudInt) {
-        boolean b = false;
-       TForumArticleExample fae = new TForumArticleExample();
-       fae.or().andIdEqualTo(applaudInt);
-       List<TForumArticle> lfa = tam.selectByExample(fae);
-       TForumArticle fa = new TForumArticle();
-       lfa.forEach(f -> {
-           f.setId(articleId);
-           if (applaudInt == 1) {
-               f.setApplaud(f.getApplaud()+1);
-           }else if (applaudInt == -1) {
-               f.setApplaud(f.getApplaud()-1);
-           }
-       });
-       int i =  tam.updateByPrimaryKey(fa);
-       if (i != 0) {
-           b = true;
-       }
-        return b;
-    }
-
 
     @Override
     public boolean updateViolationCount(int articleId) {
@@ -214,30 +191,71 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         TForumArticle fa = new TForumArticle();
         final int[] i = {0};
         try {
-        lfae.forEach( f -> {
-            if (StringUitl.stringFilter(f.getTitle()) && StringUitl.stringFilter(f.getContentText())) {
-                count[0] = count[0] + f.getViolationCount();
-                fa.setId(articleId);
-                fa.setViolationCount(count[0]);
-                i[0] = tam.updateByPrimaryKey(fa);
-            }else {
-                b[0] = false;
-            }
+            lfae.forEach(f -> {
+                if (StringUitl.stringFilter(f.getTitle()) && StringUitl.stringFilter(f.getContentText())) {
+                    count[0] = count[0] + f.getViolationCount();
+                    fa.setId(articleId);
+                    fa.setViolationCount(count[0]);
+                    i[0] = tam.updateByPrimaryKey(fa);
+                } else {
+                    b[0] = false;
+                }
             });
 
             if (i[0] != 0) {
                 b[0] = true;
             }
-        }finally {
+        } finally {
             return b[0];
         }
+    }
+
+    @Override
+    public Integer selectBrowseCountArticle(int userId) {
+        Integer i = 0;
+        try {
+            i = tam.selectBrowseCount(userId);
+        } finally {
+           return  i;
+        }
+    }
+
+    @Override
+    public List<TForumArticle> selectArticleAll(int userId) {
+        TForumArticleExample fae = new TForumArticleExample();
+        fae.or().andFkUserKeyEqualTo(userId);
+        List<TForumArticle> lfa = tam.selectByExample(fae);
+
+        return lfa;
+    }
+
+    @Override
+    public List<TForumArticle> selectLimitArticle(int userId) {
+        return tam.selectLimitArticle(userId);
+    }
+
+    @Override
+    public Long selectArticleCount(int userId) {
+        TForumArticleExample fae = new TForumArticleExample();
+        fae.or().andFkUserKeyEqualTo(userId);
+        return tam.countByExample(fae);
+    }
+
+    @Override
+    public boolean addArticle(TForumArticle tForumArticle) {
+        boolean b = false;
+        int i =tam.insert(tForumArticle);
+        if (i != 0 ) {
+            b = true;
+        }
+        return b;
     }
 
 
     private TForumArticleVo get(TForumArticle tf) {
         TForumArticleVo avo = new TForumArticleVo();
         avo.setId(tf.getId());
-        avo.setApplaud(tf.getApplaud());
+        avo.setApplaud(tf.getFkApplaudStatus());
         avo.setContentText(tf.getContentText());
         avo.setCommentCount(tf.getCommentCount());
         avo.setCreateTime(tf.getCreateTime());

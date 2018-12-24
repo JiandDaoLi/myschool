@@ -1,11 +1,11 @@
 package com.school.entity;
 
-public class TFkUserSign {
+public class TFkArticleUserApplaudStatus {
     private Integer id;
 
-    private Integer fkUserKey;
-
     private Integer fkArticleKey;
+
+    private Integer fkUserKey;
 
     private Integer status;
 
@@ -17,20 +17,20 @@ public class TFkUserSign {
         this.id = id;
     }
 
-    public Integer getFkUserKey() {
-        return fkUserKey;
-    }
-
-    public void setFkUserKey(Integer fkUserKey) {
-        this.fkUserKey = fkUserKey;
-    }
-
     public Integer getFkArticleKey() {
         return fkArticleKey;
     }
 
     public void setFkArticleKey(Integer fkArticleKey) {
         this.fkArticleKey = fkArticleKey;
+    }
+
+    public Integer getFkUserKey() {
+        return fkUserKey;
+    }
+
+    public void setFkUserKey(Integer fkUserKey) {
+        this.fkUserKey = fkUserKey;
     }
 
     public Integer getStatus() {

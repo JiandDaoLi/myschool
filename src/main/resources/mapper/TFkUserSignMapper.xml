@@ -4,7 +4,8 @@
   <resultMap id="BaseResultMap" type="com.school.entity.TFkUserSign">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="fk_user_key" jdbcType="INTEGER" property="fkUserKey" />
-    <result column="fk_sign_key" jdbcType="INTEGER" property="fkSignKey" />
+    <result column="fk_article_key" jdbcType="INTEGER" property="fkArticleKey" />
+    <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, fk_user_key, fk_sign_key
+    id, fk_user_key, fk_article_key, status
   </sql>
   <select id="selectByExample" parameterType="com.school.entity.TFkUserSignExample" resultMap="BaseResultMap">
     select
@@ -98,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.school.entity.TFkUserSign">
-    insert into t_fk_user_sign (id, fk_user_key, fk_sign_key
-      )
-    values (#{id,jdbcType=INTEGER}, #{fkUserKey,jdbcType=INTEGER}, #{fkSignKey,jdbcType=INTEGER}
-      )
+    insert into t_fk_user_sign (id, fk_user_key, fk_article_key, 
+      status)
+    values (#{id,jdbcType=INTEGER}, #{fkUserKey,jdbcType=INTEGER}, #{fkArticleKey,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.school.entity.TFkUserSign">
     insert into t_fk_user_sign
@@ -112,8 +113,11 @@
       <if test="fkUserKey != null">
         fk_user_key,
       </if>
-      <if test="fkSignKey != null">
-        fk_sign_key,
+      <if test="fkArticleKey != null">
+        fk_article_key,
+      </if>
+      <if test="status != null">
+        status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -123,8 +127,11 @@
       <if test="fkUserKey != null">
         #{fkUserKey,jdbcType=INTEGER},
       </if>
-      <if test="fkSignKey != null">
-        #{fkSignKey,jdbcType=INTEGER},
+      <if test="fkArticleKey != null">
+        #{fkArticleKey,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -143,8 +150,11 @@
       <if test="record.fkUserKey != null">
         fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
       </if>
-      <if test="record.fkSignKey != null">
-        fk_sign_key = #{record.fkSignKey,jdbcType=INTEGER},
+      <if test="record.fkArticleKey != null">
+        fk_article_key = #{record.fkArticleKey,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -155,7 +165,8 @@
     update t_fk_user_sign
     set id = #{record.id,jdbcType=INTEGER},
       fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
-      fk_sign_key = #{record.fkSignKey,jdbcType=INTEGER}
+      fk_article_key = #{record.fkArticleKey,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -166,8 +177,11 @@
       <if test="fkUserKey != null">
         fk_user_key = #{fkUserKey,jdbcType=INTEGER},
       </if>
-      <if test="fkSignKey != null">
-        fk_sign_key = #{fkSignKey,jdbcType=INTEGER},
+      <if test="fkArticleKey != null">
+        fk_article_key = #{fkArticleKey,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -175,7 +189,8 @@
   <update id="updateByPrimaryKey" parameterType="com.school.entity.TFkUserSign">
     update t_fk_user_sign
     set fk_user_key = #{fkUserKey,jdbcType=INTEGER},
-      fk_sign_key = #{fkSignKey,jdbcType=INTEGER}
+      fk_article_key = #{fkArticleKey,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

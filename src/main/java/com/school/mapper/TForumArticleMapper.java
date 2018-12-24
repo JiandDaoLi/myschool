@@ -3,8 +3,6 @@ package com.school.mapper;
 import com.school.entity.TForumArticle;
 import com.school.entity.TForumArticleExample;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
 
 import java.util.List;
 import java.util.Map;
@@ -35,4 +33,8 @@ public interface TForumArticleMapper {
     List<TForumArticle> selectLikeTitleNotIn(Map<String, Object> map);
 
     List<TForumArticle> selectLikeContentNotIn(Map<String, Object> map);
+
+    Integer selectBrowseCount(int userId);
+
+    List<TForumArticle> selectLimitArticle(int userId);
 }

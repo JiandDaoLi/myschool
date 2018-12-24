@@ -414,6 +414,76 @@ public class TForumCommentExample {
             addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
+
+        public Criteria andContentTextIsNull() {
+            addCriterion("content_text is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentTextIsNotNull() {
+            addCriterion("content_text is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentTextEqualTo(String value) {
+            addCriterion("content_text =", value, "contentText");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentTextNotEqualTo(String value) {
+            addCriterion("content_text <>", value, "contentText");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentTextGreaterThan(String value) {
+            addCriterion("content_text >", value, "contentText");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentTextGreaterThanOrEqualTo(String value) {
+            addCriterion("content_text >=", value, "contentText");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentTextLessThan(String value) {
+            addCriterion("content_text <", value, "contentText");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentTextLessThanOrEqualTo(String value) {
+            addCriterion("content_text <=", value, "contentText");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentTextLike(String value) {
+            addCriterion("content_text like", value, "contentText");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentTextNotLike(String value) {
+            addCriterion("content_text not like", value, "contentText");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentTextIn(List<String> values) {
+            addCriterion("content_text in", values, "contentText");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentTextNotIn(List<String> values) {
+            addCriterion("content_text not in", values, "contentText");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentTextBetween(String value1, String value2) {
+            addCriterion("content_text between", value1, value2, "contentText");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentTextNotBetween(String value1, String value2) {
+            addCriterion("content_text not between", value1, value2, "contentText");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
