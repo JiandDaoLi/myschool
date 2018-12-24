@@ -89,4 +89,11 @@ public interface ForumArticleService {
      * @return boolean
      */
     boolean addArticle(TForumArticle tForumArticle);
+
+    /**
+     * 修改文章
+     * @param tForumArticle
+     * @return
+     */
+    boolean updateArticle(TForumArticle tForumArticle);
 }

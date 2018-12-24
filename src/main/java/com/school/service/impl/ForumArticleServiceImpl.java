@@ -251,6 +251,24 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         return b;
     }
 
+    @Override
+    public boolean updateArticle(TForumArticle tForumArticle) {
+        boolean b = false;
+        int i = 0;
+        TForumArticleExample fae = new TForumArticleExample();
+        try {
+            if (tForumArticle != null) {
+                i = tam.updateByPrimaryKeySelective(tForumArticle);
+                if (i !=0) {
+                    b = true;
+                }
+            }
+        }finally {
+            return b;
+        }
+
+    }
+
 
     private TForumArticleVo get(TForumArticle tf) {
         TForumArticleVo avo = new TForumArticleVo();
