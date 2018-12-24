@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @Auther: XiTao
  * @Date: 2018/12/22
- * @Field: 文章回复Service
+ * @Field: 文章评论Service
  */
 public interface ForumCommentService {
     /**
@@ -16,5 +16,12 @@ public interface ForumCommentService {
      * @return
      */
     List<TForumComment> selectFkIdToComment(int id);
+
+    /**
+     * 添加评论
+     * @param tForumComment
+     * @return boolean
+     */
+    boolean addComment(TForumComment tForumComment);
 
 }

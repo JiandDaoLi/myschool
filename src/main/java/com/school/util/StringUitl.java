@@ -3,10 +3,16 @@ package com.school.util;
 /**
  * @Auther: XiTao
  * @Date: 2018/12/22
- * @Field:
+ * @Field: 字符串工具类
  */
 public class StringUitl {
     private static char[] cha = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+
+    /**
+     * 字符串获取重要信息
+     * @param string
+     * @return
+     */
     public static String aString(String string) {
         int count = 0;
         int ent = 0;
@@ -42,8 +48,6 @@ public class StringUitl {
         }catch (Exception e){
             return string;
         }
-
-
         for (int i = 0; i < newString.length(); i++) {
             if (ent == 4) {
                 bc = false;
@@ -75,18 +79,35 @@ public class StringUitl {
         }
         String news = newString.substring(0, count);
         while ((beIndex + news).length() < 20) {
-            news = beString + news;
-            break;
+            return beString + news;
+        }
+        while (beString.length() > 20) {
+            return  news;
         }
         while (news.length() > 20) {
-            news = news;
-            break;
-        }
-        while (news.length() > 20) {
-            news = beString;
-            break;
+            return  beString;
         }
         return news;
     }
+
+    /**
+     * 获取评论楼层
+     * @param rank
+     * @return
+     */
+    public static String getRank(int rank){
+        String rankS = "";
+        if (rank == 1) {
+            rankS = "沙发";
+        }else if (rank == 2) {
+            rankS = "板凳";
+        }else if ( rank > 3) {
+            rankS = rank +"楼";
+        }
+       return rankS;
+
+
+    }
+
 
 }
