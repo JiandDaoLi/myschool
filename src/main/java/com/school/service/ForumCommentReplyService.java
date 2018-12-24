@@ -18,5 +18,10 @@ public interface ForumCommentReplyService {
      */
     List<TCommentReply> selectFkCommentIdToReply(int id);
 
+    /**
+     * 添加评论
+     * @param tcr
+     * @return
+     */
     boolean addReply(TCommentReply tcr);
 }

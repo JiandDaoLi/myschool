@@ -40,4 +40,25 @@ public interface ForumArticleService {
      */
     List<TForumArticleVo> findByTitleLikeLimite(String title);
 
+    /**
+     * 评论量
+     * @param articleId 文章ID
+     * @return boolean
+     */
+    boolean updateCommentCount(int articleId);
+
+    /**
+     * 点赞 or 取消
+     * @param articleId 文章Id
+     * @param applaudInt 如果是1就加1 如果是-1就减去1
+     * @return boolean
+     */
+    boolean updateApplaudCount(int articleId, int applaudInt);
+    /**
+     * 举报验证
+     * @param articleId 文章ID
+     * @return boolean
+     */
+    boolean updateViolationCount(int articleId);
+
 }

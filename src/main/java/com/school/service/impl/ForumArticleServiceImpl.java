@@ -2,9 +2,11 @@ package com.school.service.impl;
 
 import com.school.entity.TForumArticle;
 import com.school.entity.TForumArticleExample;
+import com.school.entity.TForumComment;
 import com.school.entity.TUser;
 import com.school.mapper.TForumArticleMapper;
 import com.school.service.ForumArticleService;
+import com.school.util.StringUitl;
 import com.school.vo.TForumArticleVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -154,6 +156,83 @@ public class ForumArticleServiceImpl implements ForumArticleService {
 
         return lfaVo;
     }
+
+    @Override
+    public boolean updateCommentCount(int articleId) {
+        boolean b = false;
+        try {
+            TForumArticleExample fae = new TForumArticleExample();
+            fae.or().andIdEqualTo(articleId);
+            List<TForumArticle> lfa = tam.selectByExample(fae);
+            TForumArticle tfa = new TForumArticle();
+            lfa.forEach(f -> {
+                tfa.setId(articleId);
+                tfa.setCommentCount(f.getCommentCount()+1);
+            });
+            int i = tam.updateByPrimaryKey(tfa);
+            if (i != 0) {
+                b = true;
+            }
+        }finally {
+            return b;
+        }
+
+
+    }
+
+    @Override
+    public boolean updateApplaudCount(int articleId, int applaudInt) {
+        boolean b = false;
+       TForumArticleExample fae = new TForumArticleExample();
+       fae.or().andIdEqualTo(applaudInt);
+       List<TForumArticle> lfa = tam.selectByExample(fae);
+       TForumArticle fa = new TForumArticle();
+       lfa.forEach(f -> {
+           f.setId(articleId);
+           if (applaudInt == 1) {
+               f.setApplaud(f.getApplaud()+1);
+           }else if (applaudInt == -1) {
+               f.setApplaud(f.getApplaud()-1);
+           }
+       });
+       int i =  tam.updateByPrimaryKey(fa);
+       if (i != 0) {
+           b = true;
+       }
+        return b;
+    }
+
+
+    @Override
+    public boolean updateViolationCount(int articleId) {
+        final boolean[] b = {false};
+        TForumArticleExample fae = new TForumArticleExample();
+        fae.or()
+                .andIdEqualTo(articleId);
+        List<TForumArticle> lfae = tam.selectByExample(fae);
+        final Integer[] count = {1};
+        TForumArticle fa = new TForumArticle();
+        final int[] i = {0};
+        try {
+        lfae.forEach( f -> {
+            if (StringUitl.stringFilter(f.getTitle()) && StringUitl.stringFilter(f.getContentText())) {
+                count[0] = count[0] + f.getViolationCount();
+                fa.setId(articleId);
+                fa.setViolationCount(count[0]);
+                i[0] = tam.updateByPrimaryKey(fa);
+            }else {
+                b[0] = false;
+            }
+            });
+
+            if (i[0] != 0) {
+                b[0] = true;
+            }
+        }finally {
+            return b[0];
+        }
+    }
+
 
     private TForumArticleVo get(TForumArticle tf) {
         TForumArticleVo avo = new TForumArticleVo();

@@ -17,7 +17,6 @@ import java.util.List;
  * @Field:评论回复实现层
  */
 @Service
-@Transactional
 public class ForumCommentReplyServiceImpl  implements ForumCommentReplyService {
     @Autowired
     TCommentReplyMapper crm;
@@ -36,6 +35,19 @@ public class ForumCommentReplyServiceImpl  implements ForumCommentReplyService {
             return null;
         }finally {
             return null;
+        }
+    }
+
+    @Override
+    public boolean addReply(TCommentReply tcr) {
+        boolean b = false;
+        try {
+            int  i = crm.insert(tcr);
+            if (i != 0) {
+                b = true;
+            }
+        }finally {
+            return b;
         }
     }
 }

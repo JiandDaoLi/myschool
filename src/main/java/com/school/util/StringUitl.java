@@ -1,5 +1,8 @@
 package com.school.util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @Auther: XiTao
  * @Date: 2018/12/22
@@ -10,6 +13,7 @@ public class StringUitl {
 
     /**
      * 字符串获取重要信息
+     *
      * @param string
      * @return
      */
@@ -45,7 +49,7 @@ public class StringUitl {
         String newString = "";
         try {
             string.substring(beIndex, string.length());
-        }catch (Exception e){
+        } catch (Exception e) {
             return string;
         }
         for (int i = 0; i < newString.length(); i++) {
@@ -82,31 +86,101 @@ public class StringUitl {
             return beString + news;
         }
         while (beString.length() > 20) {
-            return  news;
+            return news;
         }
         while (news.length() > 20) {
-            return  beString;
+            return beString;
         }
         return news;
     }
 
     /**
      * 获取评论楼层
+     *
      * @param rank
      * @return
      */
-    public static String getRank(int rank){
+    public static String getRank(int rank) {
         String rankS = "";
         if (rank == 1) {
             rankS = "沙发";
-        }else if (rank == 2) {
+        } else if (rank == 2) {
             rankS = "板凳";
-        }else if ( rank > 3) {
-            rankS = rank +"楼";
+        } else if (rank > 3) {
+            rankS = rank + "楼";
         }
-       return rankS;
+        return rankS;
 
 
+    }
+
+    /**
+     * 敏感词汇验证
+     * @param s
+     * @return
+     */
+    public static boolean stringFilter(String s) {
+        boolean b = false;
+        String string1 = "";
+        String string2 = "";
+        String string3 = "";
+        String[] srArray = {"草", "你", "妈", "爸", "尼", "狗", "日"};
+        for (String s1 : srArray) {
+            if (b) {
+                break;
+            }
+            if (!b) {
+                if (s.equals(s1)) {
+                    b = true;
+                    break;
+                }
+            }
+            if (!b) {
+                for (String s2 : srArray) {
+                    string2 = s1 + s2;
+                    if (s.equals(string2)) {
+                        b = true;
+                        break;
+                    }
+                    if (!b) {
+                        for (String s3 : srArray) {
+                            string3 = s1 + s2 + s3;
+                            if (s.equals(string3)) {
+                                b = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        System.out.println(b);
+        return b;
+    }
+
+
+    /**
+     * 验证输入的是否是数字
+     * @param s
+     * @return
+     */
+    public  static  boolean validateInt(String s){
+        String regex = "^[0-9]*$";
+        return match(regex, s);
+    }
+
+
+    /**
+     * 正则验证
+     * @param regex
+     * @param str
+     * @return
+     */
+    private static boolean match(String regex, String str) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
     }
 
 

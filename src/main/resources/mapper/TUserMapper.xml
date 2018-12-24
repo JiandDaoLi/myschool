@@ -252,7 +252,7 @@
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
     update t_user
-    <set >
+    <set>
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>

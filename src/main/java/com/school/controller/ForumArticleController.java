@@ -124,4 +124,13 @@ public class ForumArticleController {
             return modelAndView;
         }
     }
+
+    @RequestMapping("/addViolation")
+    public  boolean updateViolationCount(int articleId) {
+       return fas.updateViolationCount(articleId);
+    }
+    @RequestMapping("/addApplaud")
+    public  boolean  updateApplaudCount(int articleId, int applaudCount) {
+       return fas.updateApplaudCount(articleId,applaudCount);
+    }
 }
