@@ -1,4 +1,4 @@
-package com.school.config;
+package com.school.configuration;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;

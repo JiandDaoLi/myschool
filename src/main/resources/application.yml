@@ -8,30 +8,10 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
-    #使用druid数据源
-    type: com.alibaba.druid.pool.DruidDataSource
-    filters: stat
-    maxActive: 20
-    initialSize: 5
-    maxWait: 60000
-    minIdle: 5
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validationQuery: select 'x'
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    poolPreparedStatements: true
-    maxOpenPreparedStatements: 20
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.school.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-#pagehelper:
-pagehelper:
-  helper-dialect: mysql
-  reasonable: true
-  support-methods-arguments: true
-  params: count=contSql
+

@@ -2,9 +2,9 @@ package com.school.controller;
 
 
 import com.school.entity.TForumArticle;
+import com.school.entity.TIntegralIco;
 import com.school.entity.TUser;
-import com.school.service.ForumArticleService;
-import com.school.service.UserService;
+import com.school.service.*;
 import com.school.util.StringUitl;
 import com.school.vo.TForumArticleVo;
 import org.slf4j.Logger;
@@ -16,7 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -34,6 +36,12 @@ public class ForumArticleController {
     @Autowired
     UserService userService;
     ReadWriteLock rwl = new ReentrantReadWriteLock();
+    @Autowired
+    ForumMindService mindService;
+    @Autowired
+    ForumFansService forumFansService;
+    @Autowired
+    IntegralIcoService inte;
 
 
     /**
@@ -87,8 +95,7 @@ public class ForumArticleController {
         ModelAndView modelAndView= new ModelAndView(new MappingJackson2JsonView());
         TForumArticleVo favo= fas.findByTitleToArticle(title);
         try {
-
-            if (favo != null) {
+           if (favo != null) {
                 List<Integer> li = new ArrayList<>();
                 li.add(favo.getFkUserKey().getId());
                 List<TUser> lu = userService.selectUserIdIn(li);
@@ -98,9 +105,10 @@ public class ForumArticleController {
                     }
                 }
             }
-        }finally {
-            modelAndView.addObject("favo", favo);
 
+        }finally {
+
+           modelAndView.addObject("faVo",favo);
             String titleUtil = StringUitl.aString(title);
             List<TForumArticleVo> taVO =  fas.findByTitleLikeLimite(titleUtil);
             if (taVO != null && taVO.size()!= 0) {
@@ -161,17 +169,78 @@ public class ForumArticleController {
     }
 
     @RequestMapping("/addArticle")
-    public boolean addArticle(TForumArticle tForumArticle){
+    public boolean addArticle(TForumArticle tForumArticle) {
         boolean b = false;
         try {
             if (tForumArticle != null) {
-               b = fas.addArticle(tForumArticle);
+                b = fas.addArticle(tForumArticle);
             }
-        }finally {
+        } finally {
             return b;
         }
 
     }
 
+
+    /**
+     * 通过分类类型ID 查询 分类下的所有 文章
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/singleTypeAll")
+    public ModelAndView selectForumSingleType(int id) {
+        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
+        List<TForumArticleVo> lfaVo = fas.findByFkTypeIdToArticle(id);
+        if (lfaVo != null && lfaVo.size() != 0) {
+            List<Integer> li = new ArrayList<>();
+            for (TForumArticleVo tf : lfaVo) {
+                li.add(tf.getFkUserKey().getId());
+            }
+            List<TUser> lu = userService.selectUserIdIn(li);
+            for (TUser tu : lu) {
+                for (TForumArticleVo favo : lfaVo) {
+                    if (tu.getId() == favo.getFkUserKey().getId()) {
+                        favo.setFkUserKey(tu);
+                    }
+                }
+            }
+        }
+        modelAndView.addObject("lfavo", lfaVo);
+        return modelAndView;
+    }
+
+    @RequestMapping("personalAll")
+    public ModelAndView selectPersonalAll(int userId){
+        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
+        Map map = new HashMap();
+        List<TForumArticle> lfa = fas.selectLimitArticle(userId);
+        map.put("articleLimit", lfa);
+        Long count = fas.selectArticleCount(userId);
+        map.put("articleC", count);
+        Integer count1 = fas.selectBrowseCountArticle(userId);
+        map.put("browseC",count1);
+
+
+        Long l1 = forumFansService.selectCountFansUser(userId);
+        map.put("fansC",l1);
+        List<Integer> li = new ArrayList<>();
+        li.add(userId);
+        List<TUser> tuser = userService.selectUserIdIn(li);
+        TUser u = new TUser();
+        for (TUser tUser : tuser) {
+            u = tUser;
+        }
+        map.put("tuser",u);
+
+        TIntegralIco tin = inte.selectFkIdICO(u.getFkIntegralId());
+        map.put("inte",tin);
+
+
+        Long l = mindService.selectCountMindUser(userId);
+        map.put("mindC",l);
+        modelAndView.addAllObjects(map);
+        return modelAndView;
+    }
 
 }

@@ -7,6 +7,7 @@ import com.school.service.ForumFansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,13 +31,12 @@ public class ForumFansServiceImpl implements ForumFansService {
     public List<TForumFans> selectMeFansUser(int userId) {
         TForumFansExample ffe = new TForumFansExample();
         ffe.or().andFkDecideUserEqualTo(userId);
+        List<TForumFans> lff = new ArrayList<>();
         try {
-            List<TForumFans> lff = ffm.selectByExample(ffe);
-            if (lff != null && lff.size() != 0) {
-                return lff;
-            }
+                lff = ffm.selectByExample(ffe);
+
         } finally {
-            return null;
+            return lff;
         }
     }
 

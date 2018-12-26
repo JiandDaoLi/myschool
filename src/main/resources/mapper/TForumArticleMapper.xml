@@ -324,7 +324,7 @@
     </if>
   </select>
 
-  <select id="selectBrowseCount" resultMap="java.lang.Integer" parameterType="java.lang.Integer">
+  <select id="selectBrowseCount" resultType="java.lang.Integer" parameterType="java.lang.Integer">
 
         SELECT sum(browse_conut) FROM t_forum_article WHERE fk_user_key = #{userId}
 

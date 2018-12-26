@@ -1,10 +1,12 @@
 package com.school.controller;
 
+import com.school.entity.TForumFans;
 import com.school.entity.TForumMind;
 import com.school.service.ForumFansService;
 import com.school.service.ForumMindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
@@ -16,6 +18,7 @@ import java.util.List;
  * @Field:添加关注的人
  */
 @RequestMapping("/mind")
+@RestController
 public class ForumMindController {
     @Autowired
     ForumMindService mindService;
@@ -45,8 +48,12 @@ public class ForumMindController {
     @RequestMapping("/mindUser")
     public ModelAndView selectMeMindUser(int userId) {
         List<TForumMind> lfm = mindService.selectMeMindUser(userId);
+        List<TForumFans> lff = fansService.selectMeFansUser(userId);
+
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
         modelAndView.addObject("mindUser", lfm);
+
+        modelAndView.addObject("meFansUser",lff);
         return modelAndView;
     }
 

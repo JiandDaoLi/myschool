@@ -28,8 +28,10 @@ public class UserController {
            lu.forEach(u ->{
                TUser user = u;
                modelAndView.addObject("tuser", user);
+
            });
         }
+
         return modelAndView;
 
     }

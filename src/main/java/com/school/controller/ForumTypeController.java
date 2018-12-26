@@ -61,33 +61,7 @@ public class ForumTypeController {
         }
     }
 
-    /**
-     * 通过分类类型ID 查询 分类下的所有 文章
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping("/singleType")
-    public ModelAndView selectForumSingleType(int id) {
-        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
-        List<TForumArticleVo> lfaVo = forumArticleService.findByFkTypeIdToArticle(id);
-        if (lfaVo != null && lfaVo.size() != 0) {
-            List<Integer> li = new ArrayList<>();
-            for (TForumArticleVo tf : lfaVo) {
-                li.add(tf.getFkUserKey().getId());
-            }
-            List<TUser> lu = userService.selectUserIdIn(li);
-            for (TUser tu : lu) {
-                for (TForumArticleVo favo : lfaVo) {
-                    if (tu.getId() == favo.getFkUserKey().getId()) {
-                        favo.setFkUserKey(tu);
-                    }
-                }
-            }
-        }
-        modelAndView.addObject("lfavo", lfaVo);
-        return modelAndView;
-    }
+
 
 
 }

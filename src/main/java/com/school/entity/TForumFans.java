@@ -11,6 +11,15 @@ public class TForumFans {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return "TForumFans{" +
+                "id=" + id +
+                ", fkDecideUser=" + fkDecideUser +
+                ", fkFansUser=" + fkFansUser +
+                '}';
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -30,4 +39,5 @@ public class TForumFans {
     public void setFkFansUser(Integer fkFansUser) {
         this.fkFansUser = fkFansUser;
     }
+
 }

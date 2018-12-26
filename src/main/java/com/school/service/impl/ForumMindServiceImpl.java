@@ -4,6 +4,8 @@ import com.school.entity.TForumMind;
 import com.school.entity.TForumMindExample;
 import com.school.mapper.TForumMindMapper;
 import com.school.service.ForumMindService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -19,6 +21,7 @@ import java.util.List;
 @Service
 @Transactional
 public class ForumMindServiceImpl implements ForumMindService {
+    Logger log = LoggerFactory.getLogger(ForumMindServiceImpl.class);
     @Autowired
     TForumMindMapper fmm;
 
@@ -49,13 +52,10 @@ public class ForumMindServiceImpl implements ForumMindService {
         fme.or()
                 .andFkMindUserEqualTo(userId);
         List<TForumMind> lfm = fmm.selectByExample(fme);
-        try {
-            if (lfm != null && lfm.size() != 0) {
-                return lfm;
-            }
-        } finally {
-            return null;
-        }
+
+
+            return lfm;
+
 
     }
 }
