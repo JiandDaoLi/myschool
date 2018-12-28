@@ -47,9 +47,11 @@ public class ForumCommentReplyServiceImpl  implements ForumCommentReplyService {
             if (i != 0) {
                 b = true;
             }
-        }finally {
+        }catch (Exception e){
+            System.out.println(e.toString());
             return b;
         }
+        return b;
     }
 }
 

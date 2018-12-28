@@ -114,6 +114,11 @@ public class StringUitl {
 
     }
 
+    public static void main(String[] args) {
+
+        System.out.println(stringFilter("是你呀还是我呀"));
+    }
+
     /**
      * 敏感词汇验证
      * @param s

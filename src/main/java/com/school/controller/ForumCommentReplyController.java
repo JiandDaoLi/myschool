@@ -50,20 +50,22 @@ public class ForumCommentReplyController {
      * @param userId 评论回复用户ID
      * @return boolean
      */
+    @RequestMapping("/add")
     public boolean addReply(int commentKey,String content, int userId) {
         TCommentReply tcr = new TCommentReply();
         boolean b = false;
         try {
-            if (StringUitl.stringFilter(content)) {
+            if (!StringUitl.stringFilter(content)) {
                 tcr.setContentText(content);
                 tcr.setFkForumCommentKey(commentKey);
                 tcr.setFkUserKey(userId);
-                TCommentReply fcr = new TCommentReply();
-                b = forumCommentReplyService.addReply(fcr);
+
+                b = forumCommentReplyService.addReply(tcr);
             }
-        }finally {
-            return b ;
+        }catch (Exception e){
+            return b;
         }
+        return  b;
     }
 
 
