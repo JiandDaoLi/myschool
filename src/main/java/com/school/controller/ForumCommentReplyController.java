@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +28,9 @@ public class ForumCommentReplyController {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
         try {
             if (id != 0) {
-                List<TCommentReply> lcr = forumCommentReplyService.selectFkCommentIdToReply(id);
+                List<Integer> li = new ArrayList<>();
+                li.add(id);
+                List<TCommentReply> lcr = forumCommentReplyService.selectFkCommentIdToReply(li);
 
                 if (lcr != null && lcr.size() != 0) {
                     modelAndView.addObject("lcr", lcr);

@@ -38,9 +38,11 @@ public class ForumCommentServiceImpl implements ForumCommentService {
             if (lfc != null && lfc.size() != 0) {
                 return lfc;
             }
-        }finally {
-            return null;
+        }catch (Exception e) {
+            return  null;
         }
+            return null;
+
     }
 
     @Override

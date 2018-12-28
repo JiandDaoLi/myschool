@@ -2,6 +2,7 @@ package com.school.controller;
 
 import com.school.entity.TForumFans;
 import com.school.service.ForumFansService;
+import com.school.service.ForumMindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,8 @@ public class ForumFansController {
 
     @Autowired
     ForumFansService forumFansService;
+    @Autowired
+    ForumMindService forumMindService;
 
     @RequestMapping("/countFans")
     public ModelAndView selectCountFansUser(int userId){
@@ -36,6 +39,22 @@ public class ForumFansController {
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
         modelAndView.addObject("meFansUser",lff);
         return  modelAndView;
+    }
+
+    @RequestMapping("/deleteFans")
+    public  boolean deleteFans(int userId,int deid){
+        boolean b = false;
+
+
+
+        b = forumFansService.deleteFans(userId,deid);
+
+          b =   forumMindService.deleteMind(userId,deid);
+
+
+
+        return b;
+
     }
 
 }

@@ -22,10 +22,10 @@ public class ForumCommentReplyServiceImpl  implements ForumCommentReplyService {
     TCommentReplyMapper crm;
 
     @Override
-    public List<TCommentReply> selectFkCommentIdToReply(int id) {
+    public List<TCommentReply> selectFkCommentIdToReply(List<Integer> id) {
         TCommentReplyExample cre = new TCommentReplyExample();
         cre.or()
-                .andFkForumCommentKeyEqualTo(id);
+                .andFkForumCommentKeyIn(id);
         List<TCommentReply> lcr = crm.selectByExample(cre);
         try {
             if (lcr != null && lcr.size() != 0) {
@@ -33,10 +33,11 @@ public class ForumCommentReplyServiceImpl  implements ForumCommentReplyService {
             }
         } catch (Exception e) {
             return null;
-        }finally {
-            return null;
+
         }
+        return null;
     }
+
 
     @Override
     public boolean addReply(TCommentReply tcr) {

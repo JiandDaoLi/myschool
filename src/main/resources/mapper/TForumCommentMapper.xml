@@ -5,8 +5,8 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="fk_forum_article_key" jdbcType="INTEGER" property="fkForumArticleKey" />
     <result column="fk_user_key" jdbcType="INTEGER" property="fkUserKey" />
-    <result column="rank" jdbcType="VARCHAR" property="rank" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ranks" jdbcType="VARCHAR" property="ranks" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
     <result column="content_text" jdbcType="VARCHAR" property="contentText" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, fk_forum_article_key, fk_user_key, rank, create_time, content_text
+    id, fk_forum_article_key, fk_user_key, ranks, create_time, content_text
   </sql>
   <select id="selectByExample" parameterType="com.school.entity.TForumCommentExample" resultMap="BaseResultMap">
     select
@@ -102,10 +102,10 @@
   </delete>
   <insert id="insert" parameterType="com.school.entity.TForumComment">
     insert into t_forum_comment (id, fk_forum_article_key, fk_user_key, 
-      rank, create_time, content_text
+      ranks, create_time, content_text
       )
     values (#{id,jdbcType=INTEGER}, #{fkForumArticleKey,jdbcType=INTEGER}, #{fkUserKey,jdbcType=INTEGER}, 
-      #{rank,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{contentText,jdbcType=VARCHAR}
+      #{ranks,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{contentText,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.school.entity.TForumComment">
@@ -120,8 +120,8 @@
       <if test="fkUserKey != null">
         fk_user_key,
       </if>
-      <if test="rank != null">
-        rank,
+      <if test="ranks != null">
+        ranks,
       </if>
       <if test="createTime != null">
         create_time,
@@ -140,11 +140,11 @@
       <if test="fkUserKey != null">
         #{fkUserKey,jdbcType=INTEGER},
       </if>
-      <if test="rank != null">
-        #{rank,jdbcType=VARCHAR},
+      <if test="ranks != null">
+        #{ranks,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+        #{createTime,jdbcType=DATE},
       </if>
       <if test="contentText != null">
         #{contentText,jdbcType=VARCHAR},
@@ -169,11 +169,11 @@
       <if test="record.fkUserKey != null">
         fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
       </if>
-      <if test="record.rank != null">
-        rank = #{record.rank,jdbcType=VARCHAR},
+      <if test="record.ranks != null">
+        ranks = #{record.ranks,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        create_time = #{record.createTime,jdbcType=DATE},
       </if>
       <if test="record.contentText != null">
         content_text = #{record.contentText,jdbcType=VARCHAR},
@@ -188,8 +188,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       fk_forum_article_key = #{record.fkForumArticleKey,jdbcType=INTEGER},
       fk_user_key = #{record.fkUserKey,jdbcType=INTEGER},
-      rank = #{record.rank,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+    ranks = #{record.ranks,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=DATE},
       content_text = #{record.contentText,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -204,11 +204,11 @@
       <if test="fkUserKey != null">
         fk_user_key = #{fkUserKey,jdbcType=INTEGER},
       </if>
-      <if test="rank != null">
-        rank = #{rank,jdbcType=VARCHAR},
+      <if test="ranks != null">
+        ranks = #{ranks,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=DATE},
       </if>
       <if test="contentText != null">
         content_text = #{contentText,jdbcType=VARCHAR},
@@ -220,8 +220,8 @@
     update t_forum_comment
     set fk_forum_article_key = #{fkForumArticleKey,jdbcType=INTEGER},
       fk_user_key = #{fkUserKey,jdbcType=INTEGER},
-      rank = #{rank,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ranks = #{ranks,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=DATE},
       content_text = #{contentText,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

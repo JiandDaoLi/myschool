@@ -9,7 +9,7 @@ public class TForumComment {
 
     private Integer fkUserKey;
 
-    private String rank;
+    private String ranks;
 
     private Date createTime;
 
@@ -39,12 +39,12 @@ public class TForumComment {
         this.fkUserKey = fkUserKey;
     }
 
-    public String getRank() {
-        return rank;
+    public String getRanks() {
+        return ranks;
     }
 
-    public void setRank(String rank) {
-        this.rank = rank == null ? null : rank.trim();
+    public void setRanks(String ranks) {
+        this.ranks = ranks == null ? null : ranks.trim();
     }
 
     public Date getCreateTime() {

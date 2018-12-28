@@ -69,7 +69,7 @@ public class ForumCommentController {
             tfc.setCreateTime(new Date());
             tfc.setFkForumArticleKey(articleId);
             tfc.setFkUserKey(userId);
-            tfc.setRank(StringUitl.getRank(rank));
+            tfc.setRanks(StringUitl.getRank(rank));
             b  = forumCommentService.addComment(tfc);
         }
         if (b) {

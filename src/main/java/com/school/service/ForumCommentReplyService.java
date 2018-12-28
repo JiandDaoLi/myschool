@@ -16,7 +16,7 @@ public interface ForumCommentReplyService {
      * @param id
      * @return
      */
-    List<TCommentReply> selectFkCommentIdToReply(int id);
+    List<TCommentReply> selectFkCommentIdToReply(List<Integer> id);
 
     /**
      * 添加评论

@@ -1,9 +1,7 @@
 package com.school.controller;
 
 
-import com.school.entity.TForumArticle;
-import com.school.entity.TIntegralIco;
-import com.school.entity.TUser;
+import com.school.entity.*;
 import com.school.service.*;
 import com.school.util.StringUitl;
 import com.school.vo.TForumArticleVo;
@@ -42,6 +40,10 @@ public class ForumArticleController {
     ForumFansService forumFansService;
     @Autowired
     IntegralIcoService inte;
+    @Autowired
+    ForumCommentService forumCommentService;
+    @Autowired
+    ForumCommentReplyService forumCommentReplyService;
 
 
     /**
@@ -86,29 +88,61 @@ public class ForumArticleController {
     }
 
     /**
-     * 通过标题 equal Article and 相关文章
+     * 通过标题 equal Article and 相关文章 评论内容 回复内容
      * @param title
      * @return Article
      */
     @RequestMapping("/titleToArticle")
     public ModelAndView findByTitleToArticle(String title){
         ModelAndView modelAndView= new ModelAndView(new MappingJackson2JsonView());
+        //这篇文章
         TForumArticleVo favo= fas.findByTitleToArticle(title);
+        int fk =0;
         try {
            if (favo != null) {
                 List<Integer> li = new ArrayList<>();
                 li.add(favo.getFkUserKey().getId());
                 List<TUser> lu = userService.selectUserIdIn(li);
+
                 for (TUser tUser : lu) {
                     if (tUser.getId() == favo.getFkUserKey().getId()) {
                         favo.setFkUserKey(tUser);
+                        fk = tUser.getFkIntegralId();
                     }
                 }
             }
 
         }finally {
-
+            //用户等级图标
+           TIntegralIco tii = inte.selectFkIdICO(fk);
+            modelAndView.addObject("tii",tii);
            modelAndView.addObject("faVo",favo);
+
+
+            Map  map = new HashMap();
+
+           //评论查询
+            List<TForumComment> lfc = forumCommentService.selectFkIdToComment(favo.getId());
+            map.put("lfcomment",lfc);
+            //评论人
+            List<Integer> lit = new ArrayList<>();
+            for (TForumComment fc : lfc) {
+                lit.add(fc.getId());
+            }
+
+            List<TUser> luserComment =  userService.selectUserIdIn(lit);
+            map.put("userComment",luserComment);
+            //评论回复查询
+            List<TCommentReply> lcr = forumCommentReplyService.selectFkCommentIdToReply(lit);
+            map.put("lcreply",lcr);
+            //评论回复人
+            List<Integer> litg = new ArrayList<>();
+            for (TCommentReply tCommentReply : lcr) {
+                litg.add(tCommentReply.getFkUserKey());
+            }
+            List<TUser> luserReply =  userService.selectUserIdIn(litg);
+            map.put("userReply",luserReply);
+           //相关文章推荐
             String titleUtil = StringUitl.aString(title);
             List<TForumArticleVo> taVO =  fas.findByTitleLikeLimite(titleUtil);
             if (taVO != null && taVO.size()!= 0) {
@@ -129,6 +163,8 @@ public class ForumArticleController {
                     }
                 }
             }
+
+            modelAndView.addAllObjects(map);
             modelAndView.addObject("taVo", taVO);
             return modelAndView;
         }

@@ -31,4 +31,8 @@ public interface ForumFansService {
      * @return
      */
     boolean addFans(int userId, int decideId);
+
+    boolean selectMeTrueFalseFans(int userId, int decideId);
+
+    boolean deleteFans(int userId, int decideId);
 }

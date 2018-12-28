@@ -27,13 +27,24 @@ public class ForumMindController {
 
     @RequestMapping("/addMind")
     public boolean addMind(int mindUserId, int decideUserId){
-        TForumMind tForumMind = new TForumMind();
-        tForumMind.setFkDecideUser(decideUserId);
-        tForumMind.setFkMindUser(mindUserId);
-        boolean b = mindService.insertMeMindPerson(tForumMind);
-        if (b) {
-            b = fansService.addFans(decideUserId,mindUserId);
+        boolean b = false;
+        b = mindService.selectMeTrueFalseMindHe(mindUserId,decideUserId);
+        if (!b) {
+            TForumMind tForumMind = new TForumMind();
+            tForumMind.setFkDecideUser(decideUserId);
+            tForumMind.setFkMindUser(mindUserId);
+             mindService.insertMeMindPerson(tForumMind);
+
+            fansService.selectMeTrueFalseFans(mindUserId,decideUserId);
+
+              b = fansService.addFans(mindUserId,decideUserId);
+
+
+
+
+
         }
+
         return b;
     }
 
@@ -55,6 +66,11 @@ public class ForumMindController {
 
         modelAndView.addObject("meFansUser",lff);
         return modelAndView;
+    }
+
+    @RequestMapping("/booleanMind")
+    public boolean selectMeTrueFalseMindHe(int userId, int deId){
+       return   mindService.selectMeTrueFalseMindHe(userId,deId);
     }
 
 }

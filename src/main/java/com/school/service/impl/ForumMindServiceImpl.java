@@ -4,6 +4,7 @@ import com.school.entity.TForumMind;
 import com.school.entity.TForumMindExample;
 import com.school.mapper.TForumMindMapper;
 import com.school.service.ForumMindService;
+import com.school.util.IntUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,33 @@ public class ForumMindServiceImpl implements ForumMindService {
             return lfm;
 
 
+    }
+
+    @Override
+    public boolean selectMeTrueFalseMindHe(int userId, int deId) {
+        boolean b = false;
+        TForumMindExample tForumMindExample = new TForumMindExample();
+        tForumMindExample.or()
+                .andFkMindUserEqualTo(userId)
+                .andFkDecideUserEqualTo(deId);
+       List<TForumMind> list =  fmm.selectByExample(tForumMindExample);
+        if (list.size() != 0 && list != null) {
+            b = true;
+        }
+        return b;
+    }
+
+    @Override
+    public boolean deleteMind(int userId, int deId) {
+        boolean b = false;
+        TForumMindExample tForumMindExample = new TForumMindExample();
+        tForumMindExample.or()
+                .andFkMindUserEqualTo(userId)
+                .andFkDecideUserEqualTo(deId);
+        int  i = fmm.deleteByExample(tForumMindExample);
+        b = IntUtil.addDeleteUpdate(i);
+
+
+        return b;
     }
 }
