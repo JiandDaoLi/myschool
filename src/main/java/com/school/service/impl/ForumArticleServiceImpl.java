@@ -164,18 +164,18 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             TForumArticleExample fae = new TForumArticleExample();
             fae.or().andIdEqualTo(articleId);
             List<TForumArticle> lfa = tam.selectByExample(fae);
-            TForumArticle tfa = new TForumArticle();
+
             lfa.forEach(f -> {
-                tfa.setId(articleId);
-                tfa.setCommentCount(f.getCommentCount() + 1);
+                f.setCommentCount(f.getCommentCount() + 1);
             });
-            int i = tam.updateByPrimaryKey(tfa);
+            int i = tam.updateByPrimaryKey(lfa.get(0));
             if (i != 0) {
                 b = true;
             }
-        } finally {
+        } catch (Exception e){
             return b;
         }
+        return b;
 
 
     }
@@ -267,6 +267,17 @@ public class ForumArticleServiceImpl implements ForumArticleService {
             return b;
         }
 
+    }
+
+    @Override
+    public List<TForumArticle> selectFindById(List<Integer> list) {
+        TForumArticleExample fae = new TForumArticleExample();
+        fae.or()
+                .andIdIn(list);
+        List<TForumArticle> lfa =  tam.selectByExample(fae);
+
+
+        return lfa;
     }
 
 

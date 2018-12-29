@@ -64,4 +64,23 @@ public class ForumUserSignServiceImpl implements ForumUserSignService {
         }
         return b;
     }
+
+    @Override
+    public Long selectSignCount(int userId) {
+        tFkUserSignExample.or()
+                .andFkUserKeyEqualTo(userId);
+       Long l  = tFkUserSignMapper.countByExample(tFkUserSignExample);
+
+        return l;
+    }
+
+    @Override
+    public List<TFkUserSign> selectMeSign(int userId) {
+        tFkUserSignExample.clear();
+        tFkUserSignExample.or()
+                .andFkUserKeyEqualTo(userId);
+        List<TFkUserSign> list = tFkUserSignMapper.selectByExample(tFkUserSignExample);
+        tFkUserSignExample.clear();
+        return list;
+    }
 }

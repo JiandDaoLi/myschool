@@ -44,6 +44,8 @@ public class ForumArticleController {
     ForumCommentService forumCommentService;
     @Autowired
     ForumCommentReplyService forumCommentReplyService;
+    @Autowired
+    ForumUserSignService forumUserSignService;
 
 
     /**
@@ -272,9 +274,11 @@ public class ForumArticleController {
         TIntegralIco tin = inte.selectFkIdICO(u.getFkIntegralId());
         map.put("inte",tin);
 
-
         Long l = mindService.selectCountMindUser(userId);
         map.put("mindC",l);
+
+        Long signL = forumUserSignService.selectSignCount(userId);
+        map.put("signC",signL);
         modelAndView.addAllObjects(map);
         return modelAndView;
     }

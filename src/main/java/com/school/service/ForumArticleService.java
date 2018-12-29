@@ -13,21 +13,21 @@ import java.util.List;
  */
 public interface ForumArticleService {
     /**
-     * select like Article
+     *  搜索栏 搜索 通过 匹配的 内容 标题 以及模糊匹配的
      * @param likeTitle article title
      * @return List<TForumArticleVo>
      */
     List<TForumArticleVo> findByTitleAndContentLikeToArticle(String likeTitle);
 
     /**
-     * select fk_forum_type_id article
+     * 查询 分类下的 所有 文章
      * @param id fk_forum_type_key
      * @return List<TForumArticleVo>
      */
     List<TForumArticleVo> findByFkTypeIdToArticle(int id);
 
     /**
-     * select article
+     * 通过 标题 查询
      * @param title article
      * @return TForumArticle
      */
@@ -96,4 +96,11 @@ public interface ForumArticleService {
      * @return
      */
     boolean updateArticle(TForumArticle tForumArticle);
+
+    /**
+     * 通过 id 查询 文章
+     * @param list id 集合
+     * @return
+     */
+    List<TForumArticle> selectFindById(List<Integer> list);
 }

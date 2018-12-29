@@ -1,8 +1,6 @@
 package com.school.controller;
 
 import com.school.service.ForumUserApplaudArticleService;
-import com.school.service.ForumUserSignArticleService;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
