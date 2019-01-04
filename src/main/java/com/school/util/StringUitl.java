@@ -1,5 +1,8 @@
 package com.school.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -187,6 +190,39 @@ public class StringUitl {
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }
+
+
+
+    /**
+     * 生成.png字符串
+     * @return
+     */
+    public static String createStringRandomName(){
+        // 生成文件名
+        String files = new SimpleDateFormat("yyyyMMddHHmmssSSS")
+                .format(new Date())
+                + (new Random().nextInt(9000) % (9000 - 1000 + 1) + 1000)
+                + ".text";
+
+        return files;
+    }
+
+
+
+    /**
+     * 生成.png字符串
+     * @return
+     */
+    public static String createStringRandomNamePNG(){
+        // 生成文件名
+        String files = new SimpleDateFormat("yyyyMMddHHmmssSSS")
+                .format(new Date())
+                + (new Random().nextInt(9000) % (9000 - 1000 + 1) + 1000)
+                + ".png";
+
+        return files;
+    }
+
 
 
 }

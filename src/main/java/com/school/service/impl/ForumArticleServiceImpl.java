@@ -4,9 +4,11 @@ import com.school.entity.TForumArticle;
 import com.school.entity.TForumArticleExample;
 import com.school.entity.TForumComment;
 import com.school.entity.TUser;
+import com.school.finals.FinalsString;
 import com.school.mapper.TForumArticleMapper;
 import com.school.service.ForumArticleService;
 import com.school.util.StringUitl;
+import com.school.util.UpLoadUtil;
 import com.school.vo.TForumArticleVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,7 @@ public class ForumArticleServiceImpl implements ForumArticleService {
     @Autowired
     TForumArticleMapper tam;
     ReadWriteLock rwl = new ReentrantReadWriteLock();
+    private String url = FinalsString.PROJECT_STATIC_RESOURCE_PATH_TEXT+"/";
 
     /**
      * 查询文章
@@ -212,9 +215,11 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         Integer i = 0;
         try {
             i = tam.selectBrowseCount(userId);
-        } finally {
-           return  i;
         }
+        catch (Exception e){
+            return i;
+        }
+        return i;
     }
 
     @Override
@@ -222,13 +227,27 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         TForumArticleExample fae = new TForumArticleExample();
         fae.or().andFkUserKeyEqualTo(userId);
         List<TForumArticle> lfa = tam.selectByExample(fae);
-
+        try {
+            for (TForumArticle tForumArticle : lfa) {
+                tForumArticle.setContentText(UpLoadUtil.inputFileData(tForumArticle.getContentText()).toString());
+            }
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
         return lfa;
     }
 
     @Override
     public List<TForumArticle> selectLimitArticle(int userId) {
-        return tam.selectLimitArticle(userId);
+        List<TForumArticle> l = tam.selectLimitArticle(userId);
+        try {
+            for (TForumArticle tForumArticle : l) {
+                tForumArticle.setContentText(UpLoadUtil.inputFileData(tForumArticle.getContentText()).toString());
+            }
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
+        return l;
     }
 
     @Override
@@ -278,7 +297,13 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         fae.or()
                 .andIdIn(list);
         List<TForumArticle> lfa =  tam.selectByExample(fae);
-
+        try {
+            for (TForumArticle tForumArticle : lfa) {
+                tForumArticle.setContentText(UpLoadUtil.inputFileData(tForumArticle.getContentText()).toString());
+            }
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
 
         return lfa;
     }
@@ -288,7 +313,11 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         TForumArticleVo avo = new TForumArticleVo();
         avo.setId(tf.getId());
         avo.setApplaud(tf.getFkApplaudStatus());
-        avo.setContentText(tf.getContentText());
+        try {
+            avo.setContentText(UpLoadUtil.inputFileData(tf.getContentText()).toString());
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
         avo.setCommentCount(tf.getCommentCount());
         avo.setCreateTime(tf.getCreateTime());
         avo.setViolationCount(tf.getViolationCount());

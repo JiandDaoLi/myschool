@@ -2,8 +2,10 @@ package com.school.controller;
 
 
 import com.school.entity.*;
+import com.school.finals.FinalsString;
 import com.school.service.*;
 import com.school.util.StringUitl;
+import com.school.util.UpLoadUtil;
 import com.school.vo.TForumArticleVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -207,17 +209,20 @@ public class ForumArticleController {
         return modelAndView;
     }
 
+
     @RequestMapping("/addArticle")
-    public boolean addArticle( TForumArticle tForumArticle) {
-        System.out.println(tForumArticle.toString());
-
-        boolean b = false;
-
-
+    public  boolean addArticle(TForumArticle tForumArticle ) {
+        //文件目录
+        String path = FinalsString.PROJECT_STATIC_RESOURCE_PATH_TEXT;
+        //文件名称
+        String fileName = path+"/"+StringUitl.createStringRandomName();
+        boolean b = UpLoadUtil.writeDataInServlet(tForumArticle.getContentText(), fileName);
+        if (b){
+           tForumArticle.setContentText(fileName);
+        }
         if (tForumArticle != null) {
             b = fas.addArticle(tForumArticle);
         }
-
         return b;
 
     }
