@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -244,6 +241,12 @@ public class ForumArticleServiceImpl implements ForumArticleService {
     @Override
     public boolean addArticle(TForumArticle tForumArticle) {
         boolean b = false;
+        tForumArticle.setBrowseConut(0);
+        tForumArticle.setCommentCount(0);
+        tForumArticle.setCreateTime(new Date());
+        tForumArticle.setViolationCount(0);
+        tForumArticle.setFkApplaudStatus(0);
+        tForumArticle.setFkApplaudStatus(0);
         int i =tam.insert(tForumArticle);
         if (i != 0 ) {
             b = true;

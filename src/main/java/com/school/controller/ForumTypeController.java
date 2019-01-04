@@ -63,5 +63,14 @@ public class ForumTypeController {
 
 
 
+    @RequestMapping("/option")
+    public ModelAndView selectForumTypeOptioin() {
+        ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
+        List<TForumType> ltt = forumTypeService.selectForumTypeOption();
+        modelAndView.addObject("ftype",ltt);
+        return  modelAndView;
+
+    }
+
 
 }

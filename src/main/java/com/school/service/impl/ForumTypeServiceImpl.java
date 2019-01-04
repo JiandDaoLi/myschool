@@ -41,4 +41,22 @@ public class ForumTypeServiceImpl implements ForumTypeService {
         }
 
     }
+
+    @Override
+    public List<TForumType> selectForumTypeOption() {
+
+        TForumTypeExample fte = new TForumTypeExample();
+        List<TForumType> lft = new ArrayList<>();
+        List<String> ls = new ArrayList<>();
+        ls.add("最新");
+        ls.add("推荐");
+        try {
+            fte.or()
+                    .andClassifyNotIn(ls);
+            lft = ftm.selectByExample(fte);
+        } catch (Exception e) {
+            log.info(e.toString());
+        }
+        return lft;
+    }
 }

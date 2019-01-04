@@ -16,4 +16,6 @@ public interface ForumTypeService {
      */
     List<TForumType> selectForumTypeAll();
 
+    List<TForumType> selectForumTypeOption();
+
 }

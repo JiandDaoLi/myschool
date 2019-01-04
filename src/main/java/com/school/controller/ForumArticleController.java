@@ -8,6 +8,7 @@ import com.school.vo.TForumArticleVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -207,18 +208,19 @@ public class ForumArticleController {
     }
 
     @RequestMapping("/addArticle")
-    public boolean addArticle(TForumArticle tForumArticle) {
+    public boolean addArticle( TForumArticle tForumArticle) {
+        System.out.println(tForumArticle.toString());
+
         boolean b = false;
-        try {
-            if (tForumArticle != null) {
-                b = fas.addArticle(tForumArticle);
-            }
-        } finally {
-            return b;
+
+
+        if (tForumArticle != null) {
+            b = fas.addArticle(tForumArticle);
         }
 
-    }
+        return b;
 
+    }
 
     /**
      * 通过分类类型ID 查询 分类下的所有 文章

@@ -102,4 +102,20 @@ public class TForumArticle {
     public void setCommentCount(Integer commentCount) {
         this.commentCount = commentCount;
     }
+
+    @Override
+    public String toString() {
+        return "TForumArticle{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", fkForumTypeKey=" + fkForumTypeKey +
+                ", contentText='" + contentText + '\'' +
+                ", createTime=" + createTime +
+                ", fkUserKey=" + fkUserKey +
+                ", violationCount=" + violationCount +
+                ", fkApplaudStatus=" + fkApplaudStatus +
+                ", browseConut=" + browseConut +
+                ", commentCount=" + commentCount +
+                '}';
+    }
 }
