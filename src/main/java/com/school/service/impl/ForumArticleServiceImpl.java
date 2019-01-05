@@ -106,9 +106,15 @@ public class ForumArticleServiceImpl implements ForumArticleService {
         TForumArticleExample fae = new TForumArticleExample();
         List<TForumArticle> lfa = new ArrayList<>();
         List<TForumArticleVo> lfavO = new ArrayList<>();
+
         fae.or()
-                .andFkUserKeyEqualTo(id);
-        lfa = tam.selectByExample(fae);
+                .andFkForumTypeKeyEqualTo(id);
+        if (id == 1) {
+            fae.setOrderByClause("browse_conut desc");
+
+        }else {
+            fae.setOrderByClause("create_time desc");
+        }
         for (TForumArticle tf : lfa) {
             lfavO.add(get(tf));
         }
